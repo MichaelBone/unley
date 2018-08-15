@@ -25,8 +25,9 @@ search_page = first_page_form.click_button
 # select the "Date Lodged" tab
 search_form = search_page.forms.first
 search_form['__EVENTTARGET'] = 'ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$tabControlMenu'
-search_form['__EVENTARGUMENT'] = '3';
-search_form['__LASTFOCUS'] = '';
+search_form['__EVENTARGUMENT'] = '3'
+search_form['__LASTFOCUS'] = ''
+search_form['__VIEWSTATEENCRYPTED'] = ''
 search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mEnquiryListsDropDownList'] = '10'
 search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNameTextBox'] = ''
 search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNumberTextBox'] = ''
