@@ -22,6 +22,21 @@ first_page_form = first_page.forms.first
 first_page_form.radiobuttons[0].click
 search_page = first_page_form.click_button
 
+# select the "Date Lodged" tab
+search_form = search_page.forms.first
+search_form['__EVENTTARGET'] = 'ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$tabControlMenu'
+search_form['__EVENTARGUMENT'] = '3';
+search_form['__LASTFOCUS'] = '';
+search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mEnquiryListsDropDownList'] = '10'
+search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNameTextBox'] = ''
+search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNumberTextBox'] = ''
+search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetTypeDropDown'] = '(any)'
+search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mSuburbTextBox'] = ''
+search_form['ctl00$mHeight'] = '807'
+search_form['ctl00$mWidth'] = '1184'
+search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'date_lodged_link = search_form.button_with(:text => "Date Lodged")
+search_page = search_form.submit
+
 p search_page.title.strip
 search_form = search_page.forms.first
 # get the button you want from the form
