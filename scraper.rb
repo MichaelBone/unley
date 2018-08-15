@@ -37,8 +37,12 @@ search_form['ctl00$mHeight'] = '807'
 search_form['ctl00$mWidth'] = '1184'
 search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
 # date_lodged_link = search_form.link_with(:text => 'Date Lodged')
+p "Clicking Date Lodged tab"
+agent.redirect_ok = false
 search_page = agent.submit(search_form) # date_lodged_link)
+agent.redirect_ok = true
 
+p "Searching"
 p search_page.title.strip
 search_form = search_page.forms.first
 # get the button you want from the form
