@@ -35,8 +35,8 @@ search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl0
 search_form['ctl00$mHeight'] = '807'
 search_form['ctl00$mWidth'] = '1184'
 search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
-date_lodged_link = search_form.link_with(:text => "Date Lodged")
-search_page = agent.submit(search_form, date_lodged_link)
+# date_lodged_link = search_form.link_with(:text => 'Date Lodged')
+search_page = agent.submit(search_form) # date_lodged_link)
 
 p search_page.title.strip
 search_form = search_page.forms.first
