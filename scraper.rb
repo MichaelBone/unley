@@ -34,7 +34,8 @@ search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl0
 search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mSuburbTextBox'] = ''
 search_form['ctl00$mHeight'] = '807'
 search_form['ctl00$mWidth'] = '1184'
-search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'date_lodged_link = search_form.button_with(:text => "Date Lodged")
+search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
+# date_lodged_link = search_form.button_with(:text => "Date Lodged")
 search_page = search_form.submit
 
 p search_page.title.strip
