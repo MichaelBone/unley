@@ -15,7 +15,13 @@ agent = Mechanize.new do |a|
   # a.verify_mode = OpenSSL::SSL::VERIFY_NONE
 end
 
+p "Getting first page"
 first_page = agent.get url
+p "Getting first page againg with a js= token"
+p first_page.body.split(/js=\d+/)[1]
+url_query = url + first_page.body.split(/js=\d+/)[1]
+first_page = agent.get url_query
+
 p first_page.title.strip
 first_page_form = first_page.forms.first
 # select the "List of Development Applications" radio button
