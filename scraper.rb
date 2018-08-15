@@ -10,8 +10,8 @@ agent = Mechanize.new do |a|
 a.keep_alive = true # to avoid a "Net::HTTP::Persistent::Error:too many connection resets" condition
                      # https://github.com/tenderlove/mechanize/issues/123#issuecomment-6432074
 
-  # a.log = Logger.new $stderr
-  # a.agent.http.debug_output = $stderr
+  a.log = Logger.new $stderr
+  a.agent.http.debug_output = $stderr
   a.verify_mode = OpenSSL::SSL::VERIFY_NONE
 end
 
