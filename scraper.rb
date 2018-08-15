@@ -40,7 +40,7 @@ search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
 p "Clicking Date Lodged tab"
 # agent.redirect_ok = false
 search_page = agent.submit(search_form, nil, {
-'Host' => 'online.unley.sa.gov.au'',
+'Host' => 'online.unley.sa.gov.au',
 'Connection' => 'keep-alive',
 'Cache-Control' => 'max-age=0',
 'Origin' => 'https://online.unley.sa.gov.au',
