@@ -10,8 +10,8 @@ agent = Mechanize.new do |a|
 a.keep_alive = false # to avoid a "Net::HTTP::Persistent::Error:too many connection resets" condition
                      # https://github.com/tenderlove/mechanize/issues/123#issuecomment-6432074
 
-#a.log = Logger.new $stderr
-#a.agent.http.debug_output = $stderr
+  a.log = Logger.new $stderr
+  a.agent.http.debug_output = $stderr
   a.verify_mode = OpenSSL::SSL::VERIFY_NONE
 end
 
@@ -35,8 +35,8 @@ search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl0
 search_form['ctl00$mHeight'] = '807'
 search_form['ctl00$mWidth'] = '1184'
 search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
-# date_lodged_link = search_form.button_with(:text => "Date Lodged")
-search_page = search_form.submit
+date_lodged_link = search_form.button_with(:text => "Date Lodged")
+search_page = agent.submit(search_form, date_lodged_link)
 
 p search_page.title.strip
 search_form = search_page.forms.first
