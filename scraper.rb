@@ -36,7 +36,7 @@ search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl0
 search_form['ctl00$mHeight'] = '807'
 search_form['ctl00$mWidth'] = '1184'
 search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
-date_lodged_link = search_form.link_with(text: 'Date Lodged')
+date_lodged_link = search_page.link_with(text: 'Date Lodged')
 p "Clicking Date Lodged tab"
 # agent.redirect_ok = false
 search_page = agent.submit(search_form, date_lodged_link)
