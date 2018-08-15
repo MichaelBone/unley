@@ -20,7 +20,8 @@ p first_page.title.strip
 first_page_form = first_page.forms.first
 # select the "List of Development Applications" radio button
 first_page_form.radiobuttons[0].click
-search_page = first_page_form.click_button
+agent.submit(first_page_form, nil, { '__VIEWSTATEENCRYPTED'] => '' })
+# search_page = first_page_form.click_button
 
 # select the "Date Lodged" tab
 search_form = search_page.forms.first
