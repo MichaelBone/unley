@@ -7,7 +7,7 @@ base_url = "https://online.unley.sa.gov.au/ePathway/Production/Web/GeneralEnquir
 url = "#{base_url}enquirylists.aspx"
 
 agent = Mechanize.new do |a|
-a.keep_alive = false # to avoid a "Net::HTTP::Persistent::Error:too many connection resets" condition
+a.keep_alive = true # to avoid a "Net::HTTP::Persistent::Error:too many connection resets" condition
                      # https://github.com/tenderlove/mechanize/issues/123#issuecomment-6432074
 
   # a.log = Logger.new $stderr
@@ -36,10 +36,10 @@ search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl0
 search_form['ctl00$mHeight'] = '807'
 search_form['ctl00$mWidth'] = '1184'
 search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
-date_lodged_link = search_page.link_with(text: 'Date Lodged')
+# date_lodged_link = search_page.link_with(text: 'Date Lodged')
 p "Clicking Date Lodged tab"
 # agent.redirect_ok = false
-search_page = agent.submit(search_form, date_lodged_link)
+search_page = agent.submit(search_form)
 # agent.redirect_ok = true
 
 p "Searching"
