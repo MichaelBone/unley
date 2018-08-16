@@ -23,7 +23,7 @@ p first_page.body.scan(/js=\d+/)[0]
 url_query = url + '?' + first_page.body.scan(/js=-?\d+/)[0]
 first_page = agent.get url_query
 
-p first_page.title.strip
+# p first_page.title.strip
 first_page_form = first_page.forms.first
 # select the "List of Development Applications" radio button
 first_page_form.radiobuttons[0].click
@@ -64,20 +64,19 @@ search_page = agent.submit(search_form, nil, {
 # agent.redirect_ok = true
 
 p "Searching"
-p search_page.title.strip
+# p search_page.title.strip
 search_form = search_page.forms.first
 # get the button you want from the form
 button = search_form.button_with(:value => "Search")
 # submit the form using that button
 summary_page = agent.submit(search_form, button)
-p summary_page.title.strip
+# p summary_page.title.strip
 
+p "Paging"
 das_data = []
 while summary_page
   table = summary_page.root.at_css('.ContentPanel')
-  #p table
   headers = table.css('th').collect { |th| th.inner_text.strip } 
-  p headers
 
   das_data = das_data + table.css('.ContentPanel, .AlternateContentPanel').collect do |tr| 
     tr.css('td').collect { |td| td.inner_text.strip }
@@ -103,12 +102,13 @@ das = das_data.collect do |da_item|
   page_info['date_received'] = Date.strptime(da_item[headers.index('Lodgement Date')], '%d/%m/%Y').to_s
   page_info['address'] = da_item[headers.index('Location')]
   page_info['date_scraped'] = Date.today.to_s
-  page_info['comment_url'] = comment_url
-  
+  page_info['comment_url'] = comment_url  
   page_info
 end
 
 das.each do |record|
     ScraperWiki.save_sqlite(['council_reference'], record)
 end
+
+p "Complete."
 
