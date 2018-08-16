@@ -7,9 +7,7 @@ base_url = "https://online.unley.sa.gov.au/ePathway/Production/Web/GeneralEnquir
 url = "#{base_url}enquirylists.aspx"
 
 agent = Mechanize.new do |a|
-  a.keep_alive = true # to avoid a "Net::HTTP::Persistent::Error:too many connection resets" condition
-                      # https://github.com/tenderlove/mechanize/issues/123#issuecomment-6432074
-
+  a.keep_alive = true
   # a.log = Logger.new $stderr
   # a.agent.http.debug_output = $stderr
   # a.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -17,7 +15,7 @@ end
 
 p "Getting first page"
 first_page = agent.get url
-url_query = url + '?' + first_page.body.scan(/js=-?\d+/)[0]
+url_query = url + '?' + first_page.body.scan(/js=-?\d+/)[0]  # enable JavaScript
 first_page = agent.get url_query
 
 p "Selecting List of Development Applications and clicking Next"
@@ -37,7 +35,6 @@ search_form = search_page.forms.first
 button = search_form.button_with(:value => "Search")
 # submit the form using that button
 summary_page = agent.submit(search_form, button)
-# p summary_page.title.strip
 
 count = 0
 das_data = []
@@ -58,7 +55,7 @@ while summary_page
       break
     end
     next_page_path = next_page_img['onclick'].split(',').find { |e| e =~ /.*PageNumber=\d+.*/ }.gsub('"', '').strip
-    p "Found another page: " + next_page_path
+    p "Next page: " + next_page_path
     summary_page = agent.get "#{base_url}#{next_page_path}"
   end
 end
