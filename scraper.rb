@@ -17,10 +17,10 @@ end
 
 p "Getting first page"
 first_page = agent.get url
-p first_page.body
+# p first_page.body
 p "Getting first page again with a js= token"
 p first_page.body.scan(/js=\d+/)[0]
-url_query = url + '?' + first_page.body.scan(/js=\d+/)[0]
+url_query = url + '?' + first_page.body.scan(/js=-?\d+/)[0]
 first_page = agent.get url_query
 
 p first_page.title.strip
@@ -86,8 +86,8 @@ while summary_page
   next_page_img = summary_page.root.at_xpath("//td/input[contains(@src, 'nextPage')]")
   summary_page = nil
   if next_page_img
-    p "Found another page"
     next_page_path = next_page_img['onclick'].split(',').find { |e| e =~ /.*PageNumber=\d+.*/ }.gsub('"', '').strip
+    p "Found another page: " + next_page_path
     summary_page = agent.get "#{base_url}#{next_page_path}"
   end
 end
