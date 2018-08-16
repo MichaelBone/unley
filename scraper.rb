@@ -7,8 +7,8 @@ base_url = "https://online.unley.sa.gov.au/ePathway/Production/Web/GeneralEnquir
 url = "#{base_url}enquirylists.aspx"
 
 agent = Mechanize.new do |a|
- a.keep_alive = true # to avoid a "Net::HTTP::Persistent::Error:too many connection resets" condition
-                     # https://github.com/tenderlove/mechanize/issues/123#issuecomment-6432074
+  a.keep_alive = true # to avoid a "Net::HTTP::Persistent::Error:too many connection resets" condition
+                      # https://github.com/tenderlove/mechanize/issues/123#issuecomment-6432074
 
   # a.log = Logger.new $stderr
   # a.agent.http.debug_output = $stderr
@@ -17,35 +17,21 @@ end
 
 p "Getting first page"
 first_page = agent.get url
-# p first_page.body
-p "Getting first page again with " + first_page.body.scan(/js=-?\d+/)[0]
 url_query = url + '?' + first_page.body.scan(/js=-?\d+/)[0]
 first_page = agent.get url_query
 
-# p first_page.title.strip
+p "Selecting List of Development Applications and clicking Next"
 first_page_form = first_page.forms.first
-# select the "List of Development Applications" radio button
 first_page_form.radiobuttons[0].click
 search_page = first_page_form.click_button
 
-# select the "Date Lodged" tab
+p "Clicking Date Lodged"
 search_form = search_page.forms.first
-# search_form['__EVENTTARGET'] = 'ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$tabControlMenu'
-# search_form['__EVENTARGUMENT'] = '3'
-#search_form['__LASTFOCUS'] = ''
-#search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mEnquiryListsDropDownList'] = '10'
-#search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNameTextBox'] = ''
-#search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNumberTextBox'] = ''
-#search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetTypeDropDown'] = '(any)'
-#search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mSuburbTextBox'] = ''
-#search_form['ctl00$mHeight'] = '807'
-#search_form['ctl00$mWidth'] = '1184'
-p "Clicking Date Lodged tab"
+search_form['__EVENTTARGET'] = 'ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$tabControlMenu'
+search_form['__EVENTARGUMENT'] = '3'
 search_page = agent.submit(search_form)
 
-
 p "Searching"
-# p search_page.title.strip
 search_form = search_page.forms.first
 # get the button you want from the form
 button = search_form.button_with(:value => "Search")
@@ -66,14 +52,14 @@ while summary_page
   next_page_img = summary_page.root.at_xpath("//td/input[contains(@src, 'nextPage')]")
   summary_page = nil
   if next_page_img
-    next_page_path = next_page_img['onclick'].split(',').find { |e| e =~ /.*PageNumber=\d+.*/ }.gsub('"', '').strip
-    p "Found another page: " + next_page_path
-    summary_page = agent.get "#{base_url}#{next_page_path}"
     count += 1
     if count > 10
       p "Stopping paging after " + count.to_s + " pages."
       break
     end
+    next_page_path = next_page_img['onclick'].split(',').find { |e| e =~ /.*PageNumber=\d+.*/ }.gsub('"', '').strip
+    p "Found another page: " + next_page_path
+    summary_page = agent.get "#{base_url}#{next_page_path}"
   end
 end
 
