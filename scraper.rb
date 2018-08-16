@@ -71,7 +71,8 @@ das = das_data.collect do |da_item|
   page_info['date_received'] = Date.strptime(da_item[headers.index('Lodgement Date')], '%d/%m/%Y').to_s
   page_info['address'] = da_item[headers.index('Location')]
   page_info['date_scraped'] = Date.today.to_s
-  page_info['comment_url'] = comment_url  
+  page_info['comment_url'] = comment_url
+  
   page_info
 end
 
