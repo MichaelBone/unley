@@ -47,21 +47,21 @@ search_form['ctl00$mWidth'] = '1184'
 # search_form['hiddenInputToUpdateATBuffer_CommonToolkitScripts'] = '1'
 # date_lodged_link = search_page.link_with(text: 'Date Lodged')
 p "Clicking Date Lodged tab"
-# agent.redirect_ok = false
-search_page = agent.submit(search_form, nil, {
-'Host' => 'online.unley.sa.gov.au',
-'Connection' => 'keep-alive',
-'Cache-Control' => 'max-age=0',
-'Origin' => 'https://online.unley.sa.gov.au',
-'Upgrade-Insecure-Requests' => '1',
-'Content-Type' => 'application/x-www-form-urlencoded',
-'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
-'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-'Referer' => 'https://online.unley.sa.gov.au/ePathway/Production/Web/GeneralEnquiry/EnquirySearch.aspx',
-'Accept-Encoding' => 'gzip, deflate, br',
-'Accept-Language' => 'en-US,en;q=0.9'
-})
-# agent.redirect_ok = true
+
+search_page = agent.submit(search_form)
+#search_page = agent.submit(search_form, nil, {
+#'Host' => 'online.unley.sa.gov.au',
+#'Connection' => 'keep-alive',
+#'Cache-Control' => 'max-age=0',
+#'Origin' => 'https://online.unley.sa.gov.au',
+#'Upgrade-Insecure-Requests' => '1',
+#'Content-Type' => 'application/x-www-form-urlencoded',
+#'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
+#'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+#'Referer' => 'https://online.unley.sa.gov.au/ePathway/Production/Web/GeneralEnquiry/EnquirySearch.aspx',
+#'Accept-Encoding' => 'gzip, deflate, br',
+#'Accept-Language' => 'en-US,en;q=0.9'
+#})
 
 p "Searching"
 # p search_page.title.strip
@@ -90,7 +90,7 @@ while summary_page
     p "Found another page: " + next_page_path
     summary_page = agent.get "#{base_url}#{next_page_path}"
     count += 1
-    if count >= 1
+    if count > 100
       p "Stopping paging after " + count.to_s + " pages."
       break
     end
