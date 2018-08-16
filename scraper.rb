@@ -87,7 +87,7 @@ while summary_page
   if next_page_img
     p "Found another page"
     next_page_path = next_page_img['onclick'].split(',').find { |e| e =~ /.*PageNumber=\d+.*/ }.gsub('"', '').strip
-    # summary_page = agent.get "#{base_url}#{next_page_path}"
+    summary_page = agent.get "#{base_url}#{next_page_path}"
   end
 end
 
