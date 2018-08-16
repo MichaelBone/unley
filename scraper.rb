@@ -72,13 +72,15 @@ das = das_data.collect do |da_item|
   page_info['address'] = da_item[headers.index('Location')]
   page_info['date_scraped'] = Date.today.to_s
   page_info['comment_url'] = comment_url
+  if page_info['description'].strip == ''
+    page_info['description'] = 'No description provided'
+  end
   
   page_info
 end
 
 das.each do |record|
-    ScraperWiki.save_sqlite(['council_reference'], record)
+  ScraperWiki.save_sqlite(['council_reference'], record)
 end
 
 p "Complete."
-
