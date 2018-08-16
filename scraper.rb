@@ -17,6 +17,7 @@ end
 
 p "Getting first page"
 first_page = agent.get url
+p first_page.body
 p "Getting first page again with a js= token"
 p first_page.body.scan(/js=\d+/)[0]
 url_query = url + '?' + first_page.body.scan(/js=\d+/)[0]
