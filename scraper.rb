@@ -12,7 +12,7 @@ agent = Mechanize.new do |a|
 
   # a.log = Logger.new $stderr
   # a.agent.http.debug_output = $stderr
-  a.verify_mode = OpenSSL::SSL::VERIFY_NONE
+  # a.verify_mode = OpenSSL::SSL::VERIFY_NONE
 end
 
 p "Getting first page"
