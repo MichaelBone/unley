@@ -12,7 +12,7 @@ agent = Mechanize.new do |a|
 
   # a.log = Logger.new $stderr
   # a.agent.http.debug_output = $stderr
-  # a.verify_mode = OpenSSL::SSL::VERIFY_NONE
+  a.verify_mode = OpenSSL::SSL::VERIFY_NONE
 end
 
 p "Getting first page"
@@ -26,16 +26,16 @@ p first_page.title.strip
 first_page_form = first_page.forms.first
 # select the "List of Development Applications" radio button
 first_page_form.radiobuttons[0].click
-next_button = first_page_form.button_with(:value => "Next")
-search_page = agent.submit(first_page_form, next_button, { '__VIEWSTATEENCRYPTED' => '' })
-# search_page = first_page_form.click_button
+# next_button = first_page_form.button_with(:value => "Next")
+# search_page = agent.submit(first_page_form, next_button, { '__VIEWSTATEENCRYPTED' => '' })
+search_page = first_page_form.click_button
 
 # select the "Date Lodged" tab
 search_form = search_page.forms.first
 search_form['__EVENTTARGET'] = 'ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$tabControlMenu'
 search_form['__EVENTARGUMENT'] = '3'
 search_form['__LASTFOCUS'] = ''
-search_form['__VIEWSTATEENCRYPTED'] = ''
+#search_form['__VIEWSTATEENCRYPTED'] = ''
 search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mEnquiryListsDropDownList'] = '10'
 search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNameTextBox'] = ''
 search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNumberTextBox'] = ''
