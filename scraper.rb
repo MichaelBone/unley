@@ -73,6 +73,7 @@ summary_page = agent.submit(search_form, button)
 # p summary_page.title.strip
 
 p "Paging"
+count = 0
 das_data = []
 while summary_page
   table = summary_page.root.at_css('.ContentPanel')
@@ -88,6 +89,11 @@ while summary_page
     next_page_path = next_page_img['onclick'].split(',').find { |e| e =~ /.*PageNumber=\d+.*/ }.gsub('"', '').strip
     p "Found another page: " + next_page_path
     summary_page = agent.get "#{base_url}#{next_page_path}"
+    count = count + 1
+    if count > 2
+      p "Stopping paging after " + count + "pages."
+      break
+    end
   end
 end
 
