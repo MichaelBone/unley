@@ -50,7 +50,7 @@ while summary_page
   summary_page = nil
   if next_page_img
     count += 1
-    if count > 10
+    if count > 50  # safety precaution
       p "Stopping paging after " + count.to_s + " pages."
       break
     end
