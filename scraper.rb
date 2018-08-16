@@ -19,7 +19,7 @@ p "Getting first page"
 first_page = agent.get url
 # p first_page.body
 p "Getting first page again with a js= token"
-p first_page.body.scan(/js=\d+/)[0]
+p first_page.body.scan(/js=-?\d+/)[0]
 url_query = url + '?' + first_page.body.scan(/js=-?\d+/)[0]
 first_page = agent.get url_query
 
@@ -91,7 +91,7 @@ while summary_page
     summary_page = agent.get "#{base_url}#{next_page_path}"
     count += 1
     if count > 1
-      p "Stopping paging after " + count + "pages."
+      p "Stopping paging after " + count.to_s + "pages."
       break
     end
   end
