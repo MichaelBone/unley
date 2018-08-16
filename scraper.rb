@@ -32,7 +32,7 @@ search_page = first_page_form.click_button
 search_form = search_page.forms.first
 search_form['__EVENTTARGET'] = 'ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$tabControlMenu'
 search_form['__EVENTARGUMENT'] = '3'
-search_form['__LASTFOCUS'] = ''
+#search_form['__LASTFOCUS'] = ''
 #search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mEnquiryListsDropDownList'] = '10'
 #search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNameTextBox'] = ''
 #search_form['ctl00$MainBodyContent$mGeneralEnquirySearchControl$mTabControl$ctl04$mStreetNumberTextBox'] = ''
@@ -53,7 +53,6 @@ button = search_form.button_with(:value => "Search")
 summary_page = agent.submit(search_form, button)
 # p summary_page.title.strip
 
-p "Paging"
 count = 0
 das_data = []
 while summary_page
