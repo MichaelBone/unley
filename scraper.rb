@@ -90,8 +90,8 @@ while summary_page
     p "Found another page: " + next_page_path
     summary_page = agent.get "#{base_url}#{next_page_path}"
     count += 1
-    if count > 1
-      p "Stopping paging after " + count.to_s + "pages."
+    if count >= 1
+      p "Stopping paging after " + count.to_s + " pages."
       break
     end
   end
