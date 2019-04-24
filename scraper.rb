@@ -11,8 +11,8 @@ agent = Mechanize.new do |a|
   # a.log = Logger.new $stderr
   # a.agent.http.debug_output = $stderr
   # a.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  host, port = ENV['MORPH_PROXY'].split(":")
-  a.set_proxy(host, port)
+  # host, port = ENV['MORPH_PROXY'].split(":")
+  # a.set_proxy(host, port)
 end
 
 p "Getting first page"
